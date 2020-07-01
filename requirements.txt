@@ -1,0 +1,16 @@
+asgiref==3.2.10
+attrs==19.3.0
+Django==3.0.8
+django-filter==2.3.0
+djangorestframework==3.11.0
+Markdown==3.2.2
+more-itertools==8.4.0
+packaging==20.4
+pluggy==0.13.1
+py==1.9.0
+pyparsing==2.4.7
+pytest==5.4.3
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
+wcwidth==0.2.5
