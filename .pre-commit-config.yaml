@@ -37,6 +37,7 @@ repos:
         language: system
         entry: pytest
         types: [python]
+        pass_filenames: false
 
       - id: pytest-cov
         name: pytest
