@@ -10,6 +10,8 @@ default:
   ALLOWED_HOSTS:
     - "*"
 
+  AUTH_USER_MODEL: "app.User"
+
   # Application definition
 
   INSTALLED_APPS:
@@ -20,6 +22,7 @@ default:
     - django.contrib.messages
     - django.contrib.staticfiles
     - rest_framework
+    - dateflix_api.app
 
   MIDDLEWARE:
     - django.middleware.security.SecurityMiddleware

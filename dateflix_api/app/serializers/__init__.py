@@ -1,2 +1,3 @@
-from .user import UserSerializer
-from .group import GroupSerializer
+from .group import GroupSerializer  # noqa
+from .movie import MovieSerializer  # noqa
+from .user import UserSerializer  # noqa

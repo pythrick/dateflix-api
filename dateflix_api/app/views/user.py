@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from rest_framework import viewsets
+
+from dateflix_api.app.models import User
 from dateflix_api.app.serializers import UserSerializer
 
 
