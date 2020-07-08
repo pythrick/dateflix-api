@@ -9,5 +9,9 @@ class Like(ModelMixin):
         unique_together = ("movie", "user")
 
     like = models.BooleanField(_("like"), blank=False, null=False)
-    movie = models.ForeignKey("Movie", models.PROTECT, blank=False, null=False)
-    user = models.ForeignKey("User", models.PROTECT, blank=False, null=False)
+    movie = models.ForeignKey(
+        "Movie", models.PROTECT, related_name="likes", blank=False, null=False
+    )
+    user = models.ForeignKey(
+        "User", models.PROTECT, related_name="likes", blank=False, null=False
+    )

@@ -23,8 +23,9 @@ from dateflix_api.app import views
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"groups", views.GroupViewSet)
-router.register(r"movies", views.MovieViewSet)
+router.register(r"movies", views.MovieViewSet, basename="movie")
 router.register(r"likes", views.LikeViewSet)
+router.register(r"liked-movies", views.PlaylistViewSet, basename="playlist")
 
 
 urlpatterns = [

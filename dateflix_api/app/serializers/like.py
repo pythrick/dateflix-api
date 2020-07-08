@@ -4,9 +4,7 @@ from dateflix_api.app.models import Like, Movie
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     movie = serializers.PrimaryKeyRelatedField(
         write_only=True, queryset=Movie.objects.all()
     )

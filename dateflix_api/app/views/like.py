@@ -5,10 +5,7 @@ from dateflix_api.app.serializers import LikeSerializer
 
 
 class LikeViewSet(
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet,
+    mixins.CreateModelMixin, viewsets.GenericViewSet,
 ):
     """
     API endpoint that allows movies to be liked or disliked.
