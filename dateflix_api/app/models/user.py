@@ -11,7 +11,8 @@ from .mixin import ModelMixin
 class User(AbstractBaseUser, PermissionsMixin, ModelMixin):
     first_name = models.CharField(_("first name"), max_length=50)
     last_name = models.CharField(_("last name"), max_length=50)
-    bio = models.TextField(_("bio"), blank=True, null=True)
+    bio = models.TextField(_("bio"), blank=False, null=False)
+    instagram = models.URLField(_("instagram"), blank=False, null=False)
     email = models.EmailField(_("email address"), max_length=255, unique=True)
     is_staff = models.BooleanField(
         _("staff status"),
@@ -35,7 +36,8 @@ class User(AbstractBaseUser, PermissionsMixin, ModelMixin):
         verbose_name = _("user")
         verbose_name_plural = _("users")
 
-    def get_full_name(self):
+    @property
+    def full_name(self):
         return f"{self.first_name} {self.last_name}"
 
     @property
