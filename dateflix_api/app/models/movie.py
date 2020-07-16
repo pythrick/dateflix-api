@@ -9,3 +9,9 @@ class Movie(ModelMixin):
     url = models.URLField(_("url"))
     image = models.URLField(_("image"))
     description = models.TextField(_("description"))
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title

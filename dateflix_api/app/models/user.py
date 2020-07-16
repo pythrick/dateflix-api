@@ -46,3 +46,9 @@ class User(AbstractBaseUser, PermissionsMixin, ModelMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
+
+    def __str__(self):
+        return self.full_name
+
+    def __repr__(self):
+        return self.full_name

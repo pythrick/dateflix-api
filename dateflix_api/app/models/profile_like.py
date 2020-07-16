@@ -26,3 +26,9 @@ class ProfileLike(ModelMixin):
                 from_user=self.to_user, movie=self.movie, like=True
             ).exists()
         return False
+
+    def __str__(self):
+        return f"{self.movie}: {self.from_user} -> {self.to_user}"
+
+    def __repr__(self):
+        return f"{self.movie}: {self.from_user} -> {self.to_user}"
