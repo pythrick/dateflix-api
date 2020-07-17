@@ -8,7 +8,8 @@ class Movie(ModelMixin):
     title = models.CharField(_("title"), max_length=250)
     url = models.URLField(_("url"))
     image = models.URLField(_("image"))
-    description = models.TextField(_("description"))
+    netflix_id = models.IntegerField(_("Netflix Movie ID"))
+    description = models.TextField(_("description"), blank=True, null=True)
 
     def __str__(self):
         return self.title
