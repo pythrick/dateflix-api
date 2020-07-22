@@ -3,6 +3,7 @@ from datetime import timedelta
 
 # HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
 # Read more at https://dynaconf.readthedocs.io/en/latest/guides/django.html
+import django_heroku  # noqa
 import dynaconf  # noqa
 
 # Where is all the Django's settings?
@@ -24,10 +25,4 @@ settings.SIMPLE_JWT = {
 }
 
 
-# test
-assert settings.SERVER == "devserver.com"
-assert settings.STATIC_URL == "/static/"
-assert settings.USERNAME == "pythrick"
-assert settings.PASSWORD == "My5up3r53c4et"
-assert settings.get("PASSWORD") == "My5up3r53c4et"
-assert settings.FOO == "It overrides every other env"
+django_heroku.settings(locals())

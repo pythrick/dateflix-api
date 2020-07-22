@@ -5,7 +5,7 @@ default:
   password: false
   foo: bar
   # Django Required starting settings
-  DEBUG: true
+  DEBUG: false
 
   ALLOWED_HOSTS:
     - "*"
@@ -79,6 +79,7 @@ default:
       - rest_framework.permissions.IsAuthenticated
 
 development:
+  DEBUG: true
   username: dev user
   foo: bar dev
   server: devserver.com
