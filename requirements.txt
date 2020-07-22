@@ -9,14 +9,17 @@ chardet==3.0.4
 click==7.1.2
 coverage==5.1
 distlib==0.3.1
+dj-database-url==0.5.0
 Django==3.0.8
 django-extensions==3.0.2
 django-filter==2.3.0
+django-heroku==0.3.1
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.4.0
 dynaconf==3.0.0
 filelock==3.0.12
 flake8==3.8.3
+gunicorn==20.0.4
 h11==0.9.0
 h2==3.2.0
 hpack==3.0.0
@@ -37,6 +40,8 @@ packaging==20.4
 pathspec==0.8.0
 pluggy==0.13.1
 pre-commit==2.5.1
+psycopg2==2.8.5
+psycopg2-binary==2.8.5
 py==1.9.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
@@ -57,3 +62,4 @@ typed-ast==1.4.1
 typing-extensions==3.7.4.2
 virtualenv==20.0.25
 wcwidth==0.2.5
+whitenoise==5.1.0
