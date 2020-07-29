@@ -13,7 +13,10 @@ class User(AbstractBaseUser, PermissionsMixin, ModelMixin):
     last_name = models.CharField(_("last name"), max_length=50)
     bio = models.TextField(_("bio"), blank=False, null=False)
     instagram = models.URLField(_("instagram"), blank=False, null=False)
-    email = models.EmailField(_("email address"), max_length=255, unique=True)
+    email = models.EmailField(
+        _("email address"), max_length=255, unique=True, null=True, blank=True
+    )
+    birthday_date = models.DateField(_("birthday date"), null=True, blank=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -25,6 +28,10 @@ class User(AbstractBaseUser, PermissionsMixin, ModelMixin):
         help_text=_(
             "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
         ),
+    )
+
+    instagram_user_id = models.IntegerField(
+        _("instagram user id"), null=True, blank=True
     )
 
     USERNAME_FIELD = "email"

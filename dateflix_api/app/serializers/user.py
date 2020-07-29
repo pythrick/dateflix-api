@@ -3,7 +3,15 @@ from rest_framework import serializers
 from dateflix_api.app.models import User
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    code = serializers.CharField()
+
     class Meta:
         model = User
-        fields = ["url", "username", "email", "groups"]
+        fields = [
+            "first_name",
+            "last_name",
+            "bio",
+            "birthday_date",
+            "code",
+        ]

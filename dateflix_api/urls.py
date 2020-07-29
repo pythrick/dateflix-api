@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from dateflix_api.app import views
 
@@ -33,7 +33,9 @@ router.register(r"matchs", views.MatchViewSet, basename="match")
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
-    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path(
+        "api/v1/token/", views.TokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),
     path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("admin/", admin.site.urls),
 ]
