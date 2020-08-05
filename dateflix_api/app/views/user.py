@@ -6,6 +6,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from dateflix_api import settings
 from dateflix_api.app.models import Picture, User
 from dateflix_api.app.serializers import TokenObtainPairSerializer, UserSerializer
 from dateflix_api.app.services import instagram
@@ -25,7 +26,10 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        response = instagram.authenticate(serializer.validated_data.pop("code"))
+        response = instagram.authenticate(
+            serializer.validated_data.pop("code"),
+            redirect_uri=settings.SIGNUP_REDIRECT_URI,  # noqa
+        )
         user_id = response.get("user_id")
         access_token = response.get("access_token")
 

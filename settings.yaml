@@ -21,12 +21,14 @@ default:
     - django.contrib.sessions
     - django.contrib.messages
     - django.contrib.staticfiles
+    - corsheaders
     - rest_framework
     - dateflix_api.app
 
   MIDDLEWARE:
     - django.middleware.security.SecurityMiddleware
     - django.contrib.sessions.middleware.SessionMiddleware
+    - corsheaders.middleware.CorsMiddleware
     - django.middleware.common.CommonMiddleware
     - django.middleware.csrf.CsrfViewMiddleware
     - django.contrib.auth.middleware.AuthenticationMiddleware
@@ -78,17 +80,29 @@ default:
     DEFAULT_PERMISSION_CLASSES:
       - rest_framework.permissions.IsAuthenticated
 
+  CORS_ORIGIN_ALLOW_ALL: false
+  INSTAGRAM_CLIENT_ID: xxxxxxx
+  INSTAGRAM_CLIENT_SECRET: xxxxxx
+
 development:
   DEBUG: true
   username: dev user
   foo: bar dev
   server: devserver.com
+  SIGNIN_REDIRECT_URI: https://localhost:8080/signin
+  SIGNUP_REDIRECT_URI: https://localhost:8080/signup
+  CORS_ORIGIN_WHITELIST:
+    - https://localhost:8080
 
 production:
   server: prodserver.com
   username: prod user
   foo: bar prod
   value: this value is for django app
+  SIGNIN_REDIRECT_URI: https://dateflix.netlify.app/signin
+  SIGNUP_REDIRECT_URI: https://dateflix.netlify.app/signup
+  CORS_ORIGIN_WHITELIST:
+    - https://dateflix.netlify.app
 
 staging:
   server: stagingserver.com

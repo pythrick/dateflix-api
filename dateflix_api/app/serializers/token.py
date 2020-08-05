@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt import exceptions
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from dateflix_api import settings
 from dateflix_api.app.services import instagram
 
 
@@ -20,7 +21,9 @@ class TokenObtainPairSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         try:
-            data = instagram.authenticate(attrs["code"])
+            data = instagram.authenticate(
+                attrs["code"], redirect_uri=settings.SIGNIN_REDIRECT_URI
+            )
         except Exception as e:
             raise exceptions.AuthenticationFailed(_("Invalid Instagram code."),) from e
         user_id = data.get("user_id")
