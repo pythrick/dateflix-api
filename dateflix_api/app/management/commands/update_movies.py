@@ -42,81 +42,83 @@ class Command(BaseCommand):
             result = response.json()
 
             for item in result["items"]:
-                updated_catalog_ids.add(item["id"])
-                # If movie already stored in the database, do nothing!
-                if item["id"] in stored_movies_dict:
-                    continue
-                movie = {
-                    "title": item["title"],
-                    "justwatch_id": item["id"],
-                    "tmdb_id": next(
+                try:
+                    updated_catalog_ids.add(item["id"]) 
+                    # If movie already stored in the database, do nothing!  
+                    if item["id"] in stored_movies_dict:
+                        continue 
+                    movie = {
+                        "title": item["title"],
+                        "justwatch_id": item["id"],
+                        "tmdb_id": next(
+                            (
+                                s["value"]
+                                for s in item["scoring"]
+                                if s["provider_type"] == "tmdb:id"
+                            ),
+                            None,
+                        ),
+                        "imdb_score": next(
+                            (
+                                s["value"]
+                                for s in item["scoring"]
+                                if s["provider_type"] == "imdb:score"
+                            ),
+                            None,
+                        ),
+                        "tmdb_score": next(
+                            (
+                                s["value"]
+                                for s in item["scoring"]
+                                if s["provider_type"] == "tmdb:score"
+                            ),
+                            None,
+                        ),
+                    }
+
+                    # What about movie descriptions, images and Netflix URL???
+                    response_detail = httpx.get(
+                        f"https://apis.justwatch.com/content/titles/movie/{movie['justwatch_id']}/locale/pt_BR?language=en"
+                    )
+                    result_detail = response_detail.json()
+                    description = result_detail.get("short_description")
+                    movie["netflix_url"] = next(
                         (
-                            s["value"]
-                            for s in item["scoring"]
-                            if s["provider_type"] == "tmdb:id"
+                            offer["urls"]["standard_web"]
+                            for offer in result_detail.get("offers", [])
+                            if offer["provider_id"] == NETFLIX_PROVIDER_ID
                         ),
                         None,
-                    ),
-                    "imdb_score": next(
-                        (
-                            s["value"]
-                            for s in item["scoring"]
-                            if s["provider_type"] == "imdb:score"
-                        ),
-                        None,
-                    ),
-                    "tmdb_score": next(
-                        (
-                            s["value"]
-                            for s in item["scoring"]
-                            if s["provider_type"] == "tmdb:score"
-                        ),
-                        None,
-                    ),
-                }
+                    )
 
-                # What about movie descriptions, images and Netflix URL???
-                response_detail = httpx.get(
-                    f"https://apis.justwatch.com/content/titles/movie/{movie['justwatch_id']}/locale/pt_BR?language=en"
-                )
-                result_detail = response_detail.json()
-                description = result_detail.get("short_description")
-                movie["netflix_url"] = next(
-                    (
-                        offer["urls"]["standard_web"]
-                        for offer in result_detail["offers"]
-                        if offer["provider_id"] == NETFLIX_PROVIDER_ID
-                    ),
-                    None,
-                )
+                    movie["netflix_id"] = movie["netflix_url"].split("/")[-1]
 
-                movie["netflix_id"] = movie["netflix_url"].split("/")[-1]
+                    params_detail = {"api_key": settings.TMDB_TOKEN, "language": "pt-br"}
+                    response_detail = httpx.get(
+                        f"https://api.themoviedb.org/3/movie/{movie['tmdb_id']}",
+                        params=params_detail,
+                    )
+                    if response_detail.status_code != 200:
+                        continue
+                    result_detail = response_detail.json()
+                    movie["title"] = (
+                        result_detail["title"]
+                        if result_detail.get("title")
+                        else item["title"]
+                    )
+                    movie["description"] = (
+                        result_detail["overview"]
+                        if result_detail.get("overview")
+                        else description
+                    )
+                    movie[
+                        "image"
+                    ] = f"https://image.tmdb.org/t/p/w500{result_detail['poster_path']}"
+                    movies.append(movie)
 
-                params_detail = {"api_key": settings.TMDB_TOKEN, "language": "pt-br"}
-                response_detail = httpx.get(
-                    f"https://api.themoviedb.org/3/movie/{movie['tmdb_id']}",
-                    params=params_detail,
-                )
-                if response_detail.status_code != 200:
-                    continue
-                result_detail = response_detail.json()
-                movie["title"] = (
-                    result_detail["title"]
-                    if result_detail.get("title")
-                    else item["title"]
-                )
-                movie["description"] = (
-                    result_detail["overview"]
-                    if result_detail.get("overview")
-                    else description
-                )
-                movie[
-                    "image"
-                ] = f"https://image.tmdb.org/t/p/w500{result_detail['poster_path']}"
-                movies.append(movie)
-
-                Movie(**movie).save()
-
+                    Movie(**movie).save()
+                except Exception as e:
+                    print(e)
         # Inactivate movies that left Netflix catalog
         stored_catalog_ids = set(stored_movies_dict.keys())
         diff_ids = stored_catalog_ids - updated_catalog_ids
