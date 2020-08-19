@@ -30,7 +30,7 @@ class ProfileLikeViewSet(
             "movie": {
                 "id": profile_like.movie.id,
                 "title": profile_like.movie.title,
-                "url": profile_like.movie.url,
+                "url": profile_like.movie.netflix_url,
                 "image": profile_like.movie.image,
             },
             "profile": {
