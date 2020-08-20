@@ -43,10 +43,10 @@ class Command(BaseCommand):
 
             for item in result["items"]:
                 try:
-                    updated_catalog_ids.add(item["id"]) 
-                    # If movie already stored in the database, do nothing!  
+                    updated_catalog_ids.add(item["id"])
+                    # If movie already stored in the database, do nothing!
                     if item["id"] in stored_movies_dict:
-                        continue 
+                        continue
                     movie = {
                         "title": item["title"],
                         "justwatch_id": item["id"],
@@ -93,7 +93,10 @@ class Command(BaseCommand):
 
                     movie["netflix_id"] = movie["netflix_url"].split("/")[-1]
 
-                    params_detail = {"api_key": settings.TMDB_TOKEN, "language": "pt-br"}
+                    params_detail = {
+                        "api_key": settings.TMDB_TOKEN,
+                        "language": "pt-br",
+                    }
                     response_detail = httpx.get(
                         f"https://api.themoviedb.org/3/movie/{movie['tmdb_id']}",
                         params=params_detail,

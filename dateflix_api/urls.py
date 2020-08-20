@@ -27,6 +27,7 @@ router.register(r"movies", views.MovieViewSet, basename="movie")
 router.register(r"likes", views.LikeViewSet)
 router.register(r"liked-movies", views.PlaylistViewSet, basename="playlist")
 router.register(r"profiles", views.ProfileViewSet, basename="profile")
+router.register(r"me", views.MeViewSet, basename="me")
 router.register(r"profile-likes", views.ProfileLikeViewSet)
 router.register(r"matchs", views.MatchViewSet, basename="match")
 

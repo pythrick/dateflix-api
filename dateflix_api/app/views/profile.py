@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, viewsets
 
-from dateflix_api.app.models import Movie, User, ProfileLike
+from dateflix_api.app.models import Movie, ProfileLike, User
 from dateflix_api.app.serializers import ProfileSerializer
 
 
