@@ -32,8 +32,15 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         )
         user_id = response.get("user_id")
         access_token = response.get("access_token")
+        profile = instagram.get_profile(access_token)
+        username = profile.get("username")
 
-        serializer.validated_data.update({"instagram_user_id": user_id})
+        serializer.validated_data.update(
+            {
+                "instagram_user_id": user_id,
+                "instagram": f"https://instagram.com/{username}",
+            }
+        )
 
         User = get_user_model()
         if User.objects.filter(instagram_user_id=response.get("user_id")).exists():
@@ -42,7 +49,6 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         user = User.objects.create(**serializer.validated_data)
 
         # Get pictures URLs and store them in the Database
-        profile = instagram.get_profile(access_token)
         images_ids = [d["id"] for d in profile["media"]["data"]]
         pictures = instagram.get_pictures(access_token, images_ids)
         for picture in pictures:
