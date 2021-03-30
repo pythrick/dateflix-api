@@ -73,7 +73,7 @@
 
 Project developed during live coding session at Twitch. This is a web app to find someone to watch Netflix with you, something similar to Tinder.
 
-The project are separeted in two different repositories, the [backend API](https://github.com/pythrick/dateflix-api) and the [frontend website](https://github.com/pythrick/dateflix-web).
+The project has two different repositories: the [backend API](https://github.com/pythrick/dateflix-api) and the [frontend website](https://github.com/pythrick/dateflix-web).
 
 ### Built With
 
@@ -92,9 +92,9 @@ To get a local copy up and running follow these simple example steps.
 
 List of things you need to use the software and how to install them.
 
-- [python 3.8+](https://www.python.org/downloads/)
+- [Docker](https://www.docker.com/get-started)
 
-- [poetry](https://python-poetry.org/docs/#installation)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
 - [postman](https://www.postman.com/downloads/)
 
@@ -103,7 +103,6 @@ List of things you need to use the software and how to install them.
 1. Create a Facebook App for Instagram, following [this tutorial](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started).
 2. Get a API Tokenb for The Movie DB, following [this tutorial](https://developers.themoviedb.org/3/getting-started/introduction)
 3. Clone the repo
-
 ```sh
 git clone https://github.com/pythrick/dateflix-api.git
 ```
@@ -114,47 +113,22 @@ git clone https://github.com/pythrick/dateflix-api.git
 cd dateflix-api
 ```
 
-5. Install project dependencies with Poetry
+5. Startup project
 
 ```sh
-poetry install
-```
-
-6. Create .env file based on template
-
-```sh
-cp .env_template .env
-```
-
-7. Create .secrets.yaml file based on template
-
-```sh
-cp .secrets_template.yaml .secrets.yaml
-```
-
-8. Change those secrets variables based on your API/apps credentials/tokens.
-
-9. Import the Postman collection, [following this tutorial](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman)
-
-```
-https://www.getpostman.com/collections/2fa7017a38f30cc4ba55
+make init
 ```
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-1. Run Django migrations
+1. Run the API
 
 ```sh
-poetry python manage.py migrate
+make run
 ```
-
-2. Run Django service
-
-```sh
-poetry python manage.py runserver
-```
+2. Import the Postman [collection](https://www.getpostman.com/collections/2fa7017a38f30cc4ba55), following this [tutorial](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman).
 
 <!-- ROADMAP -->
 

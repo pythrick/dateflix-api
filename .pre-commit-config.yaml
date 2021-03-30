@@ -43,6 +43,6 @@ repos:
         name: pytest
         stages: [push]
         language: system
-        entry: pytest --cov --cov-fail-under=100
+        entry: pytest # --cov --cov-fail-under=100
         types: [python]
         pass_filenames: false

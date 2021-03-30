@@ -6,6 +6,7 @@ services:
       context: .
       target: production
     image: dateflix_api
+    command: ["gunicorn", "dateflix_api.wsgi"]
     env_file:
       - .env
     ports:

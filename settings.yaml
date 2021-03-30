@@ -1,16 +1,11 @@
 default:
-  # APP specific settings
-  server: foo.com
-  username: default user
-  password: false
-  foo: bar
   # Django Required starting settings
   DEBUG: false
 
   ALLOWED_HOSTS:
     - "*"
 
-  AUTH_USER_MODEL: "app.User"
+  AUTH_USER_MODEL: "dateflix_api.User"
 
   # Application definition
 
@@ -21,9 +16,10 @@ default:
     - django.contrib.sessions
     - django.contrib.messages
     - django.contrib.staticfiles
+    - django_extensions
     - corsheaders
     - rest_framework
-    - dateflix_api.app
+    - dateflix_api
 
   MIDDLEWARE:
     - django.middleware.security.SecurityMiddleware
@@ -50,13 +46,6 @@ default:
 
   WSGI_APPLICATION: dateflix_api.wsgi.application
 
-  # Database
-  # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-  DATABASES:
-    default:
-      ENGINE: django.db.backends.sqlite3
-      NAME: db.sqlite3
-
   # Password validation
   # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
   AUTH_PASSWORD_VALIDATORS:
@@ -66,10 +55,9 @@ default:
     - NAME: django.contrib.auth.password_validation.NumericPasswordValidator
 
   LANGUAGE_CODE: en-us
-  TIME_ZONE: America/Sao_Paulo
   USE_I18N: true
   USE_L10N: true
-  USE_TZ: true
+  USE_TZ: false
   STATIC_URL: "/static/"
 
   REST_FRAMEWORK:
@@ -86,36 +74,13 @@ default:
 
 development:
   DEBUG: true
-  username: dev user
-  foo: bar dev
-  server: devserver.com
   SIGNIN_REDIRECT_URI: https://localhost:8080/signin
   SIGNUP_REDIRECT_URI: https://localhost:8080/signup
   CORS_ORIGIN_WHITELIST:
     - https://localhost:8080
 
 production:
-  server: prodserver.com
-  username: prod user
-  foo: bar prod
-  value: this value is for django app
   SIGNIN_REDIRECT_URI: https://dateflix.netlify.app/signin
   SIGNUP_REDIRECT_URI: https://dateflix.netlify.app/signup
   CORS_ORIGIN_WHITELIST:
     - https://dateflix.netlify.app
-
-staging:
-  server: stagingserver.com
-  username: staging user
-  foo: bar stag
-
-testing:
-  server: stagingserver.com
-  username: testing user
-  foo: bar testing
-
-customenv:
-  server: customserver.com
-
-global:
-  foo: It overrides every other env

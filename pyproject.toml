@@ -26,6 +26,7 @@ pytest-cov = "*"
 mypy = "*"
 isort = "*"
 flake8 = "*"
+pre-commit = "^2.11.1"
 [build-system]
 requires = ["poetry>=1.1.5"]
 build-backend = "poetry.masonry.api"

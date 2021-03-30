@@ -10,6 +10,7 @@ services:
       context: .
       target: development
     image: dateflix_api
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     env_file:
       - .env
     ports:

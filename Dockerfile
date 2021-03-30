@@ -27,8 +27,6 @@ COPY pyproject.toml ./
 RUN poetry install
 WORKDIR /app
 
-CMD ["python", "manage.py", "runserver"]
-
 # `production` image used for runtime
 FROM python-base as production
 ENV DJANGO_ENV=production
@@ -45,4 +43,3 @@ RUN poetry install --no-dev
 
 WORKDIR /app
 COPY . /app/
-CMD ["gunicorn", "dateflix_api.wsgi"]
